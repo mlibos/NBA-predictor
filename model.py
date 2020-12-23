@@ -15,21 +15,31 @@ for entry in entries.iterdir():
 	file = 'C:/Users/SEDan/Documents/github/NBA-predictor/data/' + entry.name
 	data_files.append(file)
 
-advanced_stats = pandas.read_csv(data_files[0])
-per_game_stats = pandas.read_csv(data_files[1])
-team_per_game = pandas.read_csv(data_files[2])
-team_total = pandas.read_csv(data_files[3])
+#create dataframes and make them pretty
+advanced_stats_2019 = pandas.read_csv(data_files[0])
+advanced_stats_2020 = pandas.read_csv(data_files[1])
+schedule = pandas.read_csv(data_files[2])
+per_game_stats_2019 = pandas.read_csv(data_files[3])
+per_game_stats_2020 = pandas.read_csv(data_files[4])
+team_per_game = pandas.read_csv(data_files[5])
+team_total = pandas.read_csv(data_files[6])
+team_rosters = pandas.read_csv(data_files[7])
 team_per_game.set_index('Team',inplace=True)
-team_total.set_index('Team',inplace = True)
-advanced_stats.set_index('Player',inplace=True)
-per_game_stats.set_index('Player',inplace=True)
-
-#dictionary of teams where each key is a team and each value is a list of roster players updated on 12/19/20
-team_rosters = {}
-for team in team_per_game.index:
-	team_rosters[team] = []
-print(team_rosters)
-print(advanced_stats)
-print(per_game_stats)
-print(team_total)
-print(team_per_game)
+team_total.set_index('Team',inplace=True)
+team_rosters.set_index('Team',inplace=True)
+advanced_stats_2019.set_index('Player',inplace=True)
+advanced_stats_2020.set_index('Player',inplace=True)
+per_game_stats_2019.set_index('Player',inplace=True)
+per_game_stats_2020.set_index('Player',inplace=True)
+#list of teams
+teams = ['Atlanta Hawks', 'Boston Celtics', 'Brooklyn Nets', 'Charlotte Hornets', 'Chicago Bulls', 'Cleveland Cavaliers', 'Dallas Mavericks', 'Denver Nuggets', 'Detroit Pistons', 'Golden State Warriors', 'Houston Rockets', 'Indiana Pacers', 'Los Angeles Clippers', 'Los Angeles Lakers', 'Memphis Grizzlies', 'Miami Heat', 'Milwaukee Bucks', 'Minnesota Timberwolves', 'New Orleans Pelicans', 'New York Knicks', 'Oklahoma City Thunder', 'Orlando Magic', 'Philadelphia 76ers', 'Phoenix Suns', 'Portland Trail Blazers', 'Sacramento Kings', 'San Antonio Spurs', 'Toronto Raptors', 'Utah Jazz', 'Washington Wizards']
+#dictionary where keys are teams and values are number of games played in released schedule (approx half of the schedule)
+teams_games = {}
+for team in teams:
+	teams_games[team] = 0
+#checking released schedule
+for game in schedule.index:
+	home_team = schedule.loc[game]['Home Team']
+	away_team = schedule.loc[game]['Away Team']
+	teams_games[home_team] += 1
+	teams_games[away_team] += 1
