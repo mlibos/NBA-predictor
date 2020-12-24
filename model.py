@@ -31,15 +31,54 @@ advanced_stats_2019.set_index('Player',inplace=True)
 advanced_stats_2020.set_index('Player',inplace=True)
 per_game_stats_2019.set_index('Player',inplace=True)
 per_game_stats_2020.set_index('Player',inplace=True)
-#list of teams
+
+stats = [advanced_stats_2019,advanced_stats_2020,per_game_stats_2019,per_game_stats_2020,team_per_game,team_total,team_rosters]
+
+#list of teams and lists of each conference
 teams = ['Atlanta Hawks', 'Boston Celtics', 'Brooklyn Nets', 'Charlotte Hornets', 'Chicago Bulls', 'Cleveland Cavaliers', 'Dallas Mavericks', 'Denver Nuggets', 'Detroit Pistons', 'Golden State Warriors', 'Houston Rockets', 'Indiana Pacers', 'Los Angeles Clippers', 'Los Angeles Lakers', 'Memphis Grizzlies', 'Miami Heat', 'Milwaukee Bucks', 'Minnesota Timberwolves', 'New Orleans Pelicans', 'New York Knicks', 'Oklahoma City Thunder', 'Orlando Magic', 'Philadelphia 76ers', 'Phoenix Suns', 'Portland Trail Blazers', 'Sacramento Kings', 'San Antonio Spurs', 'Toronto Raptors', 'Utah Jazz', 'Washington Wizards']
-#dictionary where keys are teams and values are number of games played in released schedule (approx half of the schedule)
-teams_games = {}
+eastern_conference = ['Atlanta Hawks','Boston Celtics','Brooklyn Nets','Charlotte Hornets','Chicago Bulls','Cleveland Cavaliers','Detroit Pistons','Indiana Pacers','Miami Heat','Milwaukee Bucks','New York Knicks','Orlando Magic','Philadelphia 76ers','Toronto Raptors','Washington Wizards']
+western_conference = []
 for team in teams:
-	teams_games[team] = 0
-#checking released schedule
-for game in schedule.index:
-	home_team = schedule.loc[game]['Home Team']
-	away_team = schedule.loc[game]['Away Team']
-	teams_games[home_team] += 1
-	teams_games[away_team] += 1
+	if team not in eastern_conference:
+		western_conference.append(team)
+
+#season has 72 games and now we set up the matchups with no regard to schedule or home vs away
+#each team plays 3 intraconference games and 2 interconference games (14*3+2*15) = 72
+def simulate_season(eastern_conference,western_conference,stats,schedule = None):
+	#main model which simulates a season with the option of giving a schedule
+	pass
+
+def simulate_game(home_team,away_team,elos):
+	#simulates a single game based on simple elo and updates elos
+	home_elo = elos[home_team]
+	away_elo = elos[away_team]
+	#home_field_advantage in bball is ? I'm guessing its worth a solid 20 elo in covid-19 times
+	home_elo += 20
+	expected_home = 1/(1+10**((away_elo-home_elo)/400))
+	expected_away = 1-expected_home
+	event = random.random()
+	result = 0
+	#538 says a k factor of 20 is optimal for basketball
+	k = 20
+	if event > expected_home:
+		result = 0
+		elos[home_team] = round((elos[home_team] + k*(0-expected_home)),1)
+		elos[away_team] = round((elos[away_team] + k*(1-expected_away)),1)
+	elif event <= expected_home:
+		result = 1
+		elos[home_team] = round((elos[home_team] + k*(1-expected_home)),1)
+		elos[away_team] = round((elos[away_team] + k*(0-expected_away)),1)
+	return(result)
+elos = {}
+elos['ATL'] = 1550
+elos['BOS'] = 1550
+atl_wins = 0
+for i in range(1):
+	result = simulate_game('ATL','BOS',elos)
+	if result == 1:
+		atl_wins +=1
+print(atl_wins,elos,)
+
+	
+
+
