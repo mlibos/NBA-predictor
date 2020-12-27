@@ -35,4 +35,5 @@ San Antonio Spurs [35.1, 46.9]
 Toronto Raptors [49.4, 32.6]
 Utah Jazz [45.8, 36.2]
 Washington Wizards [31.1, 50.9]
+
 this program took a total of  61.9 seconds to run for an n of  150
