@@ -87,23 +87,25 @@ def simulate_season(eastern_conference,western_conference,elos,records,schedule)
 			records[home_team][1] +=1
 			records[away_team][0] +=1
 	return records
-start = time.time()
-total_records = {'Atlanta Hawks': [0, 0], 'Boston Celtics': [0, 0], 'Brooklyn Nets': [0, 0], 'Charlotte Hornets': [0, 0], 'Chicago Bulls': [0, 0], 'Cleveland Cavaliers': [0, 0], 'Dallas Mavericks': [0, 0], 'Denver Nuggets': [0, 0], 'Detroit Pistons': [0, 0], 'Golden State Warriors': [0, 0], 'Houston Rockets': [0, 0], 'Indiana Pacers': [0, 0], 'Los Angeles Clippers': [0, 0], 'Los Angeles Lakers': [0, 0], 'Memphis Grizzlies': [0, 0], 'Miami Heat': [0, 0], 'Milwaukee Bucks': [0, 0], 'Minnesota Timberwolves': [0, 0], 'New Orleans Pelicans': [0, 0], 'New York Knicks': [0, 0], 'Oklahoma City Thunder': [0, 0], 'Orlando Magic': [0, 0], 'Philadelphia 76ers': [0, 0], 'Phoenix Suns': [0, 0], 'Portland Trail Blazers': [0, 0], 'Sacramento Kings': [0, 0], 'San Antonio Spurs': [0, 0], 'Toronto Raptors': [0, 0], 'Utah Jazz': [0, 0], 'Washington Wizards': [0, 0]}
-n = 150
-for i in range(n):
-	#player based elo on december 17 2020 (before season started) based on 538
-	elos = {'Atlanta Hawks': 1536, 'Boston Celtics': 1602, 'Brooklyn Nets': 1578, 'Charlotte Hornets': 1396, 'Chicago Bulls': 1421, 'Cleveland Cavaliers': 1380, 'Dallas Mavericks': 1584, 'Denver Nuggets': 1613, 'Detroit Pistons': 1354, 'Golden State Warriors': 1488, 'Houston Rockets': 1607, 'Indiana Pacers': 1537, 'Los Angeles Clippers': 1637, 'Los Angeles Lakers': 1658, 'Memphis Grizzlies': 1515, 'Miami Heat': 1594, 'Milwaukee Bucks': 1632, 'Minnesota Timberwolves': 1483, 'New Orleans Pelicans': 1552, 'New York Knicks': 1382, 'Oklahoma City Thunder': 1466, 'Orlando Magic': 1512, 'Philadelphia 76ers': 1603, 'Phoenix Suns': 1604, 'Portland Trail Blazers': 1559, 'Sacramento Kings': 1503, 'San Antonio Spurs': 1495, 'Toronto Raptors': 1607, 'Utah Jazz': 1590, 'Washington Wizards': 1430}
-	records = {'Atlanta Hawks': [0, 0], 'Boston Celtics': [0, 0], 'Brooklyn Nets': [0, 0], 'Charlotte Hornets': [0, 0], 'Chicago Bulls': [0, 0], 'Cleveland Cavaliers': [0, 0], 'Dallas Mavericks': [0, 0], 'Denver Nuggets': [0, 0], 'Detroit Pistons': [0, 0], 'Golden State Warriors': [0, 0], 'Houston Rockets': [0, 0], 'Indiana Pacers': [0, 0], 'Los Angeles Clippers': [0, 0], 'Los Angeles Lakers': [0, 0], 'Memphis Grizzlies': [0, 0], 'Miami Heat': [0, 0], 'Milwaukee Bucks': [0, 0], 'Minnesota Timberwolves': [0, 0], 'New Orleans Pelicans': [0, 0], 'New York Knicks': [0, 0], 'Oklahoma City Thunder': [0, 0], 'Orlando Magic': [0, 0], 'Philadelphia 76ers': [0, 0], 'Phoenix Suns': [0, 0], 'Portland Trail Blazers': [0, 0], 'Sacramento Kings': [0, 0], 'San Antonio Spurs': [0, 0], 'Toronto Raptors': [0, 0], 'Utah Jazz': [0, 0], 'Washington Wizards': [0, 0]}
-	new_records = simulate_season(eastern_conference,western_conference,elos,records,schedule)
-	for record in new_records:
-		total_records[record][0] += new_records[record][0]
-		total_records[record][1] += new_records[record][1]
+
+if __name__ == "__main__":
+	start = time.time()
+	total_records = {'Atlanta Hawks': [0, 0], 'Boston Celtics': [0, 0], 'Brooklyn Nets': [0, 0], 'Charlotte Hornets': [0, 0], 'Chicago Bulls': [0, 0], 'Cleveland Cavaliers': [0, 0], 'Dallas Mavericks': [0, 0], 'Denver Nuggets': [0, 0], 'Detroit Pistons': [0, 0], 'Golden State Warriors': [0, 0], 'Houston Rockets': [0, 0], 'Indiana Pacers': [0, 0], 'Los Angeles Clippers': [0, 0], 'Los Angeles Lakers': [0, 0], 'Memphis Grizzlies': [0, 0], 'Miami Heat': [0, 0], 'Milwaukee Bucks': [0, 0], 'Minnesota Timberwolves': [0, 0], 'New Orleans Pelicans': [0, 0], 'New York Knicks': [0, 0], 'Oklahoma City Thunder': [0, 0], 'Orlando Magic': [0, 0], 'Philadelphia 76ers': [0, 0], 'Phoenix Suns': [0, 0], 'Portland Trail Blazers': [0, 0], 'Sacramento Kings': [0, 0], 'San Antonio Spurs': [0, 0], 'Toronto Raptors': [0, 0], 'Utah Jazz': [0, 0], 'Washington Wizards': [0, 0]}
+	n = 150
+	for i in range(n):
+		#player based elo on december 17 2020 (before season started) based on 538
+		elos = {'Atlanta Hawks': 1536, 'Boston Celtics': 1602, 'Brooklyn Nets': 1578, 'Charlotte Hornets': 1396, 'Chicago Bulls': 1421, 'Cleveland Cavaliers': 1380, 'Dallas Mavericks': 1584, 'Denver Nuggets': 1613, 'Detroit Pistons': 1354, 'Golden State Warriors': 1488, 'Houston Rockets': 1607, 'Indiana Pacers': 1537, 'Los Angeles Clippers': 1637, 'Los Angeles Lakers': 1658, 'Memphis Grizzlies': 1515, 'Miami Heat': 1594, 'Milwaukee Bucks': 1632, 'Minnesota Timberwolves': 1483, 'New Orleans Pelicans': 1552, 'New York Knicks': 1382, 'Oklahoma City Thunder': 1466, 'Orlando Magic': 1512, 'Philadelphia 76ers': 1603, 'Phoenix Suns': 1604, 'Portland Trail Blazers': 1559, 'Sacramento Kings': 1503, 'San Antonio Spurs': 1495, 'Toronto Raptors': 1607, 'Utah Jazz': 1590, 'Washington Wizards': 1430}
+		records = {'Atlanta Hawks': [0, 0], 'Boston Celtics': [0, 0], 'Brooklyn Nets': [0, 0], 'Charlotte Hornets': [0, 0], 'Chicago Bulls': [0, 0], 'Cleveland Cavaliers': [0, 0], 'Dallas Mavericks': [0, 0], 'Denver Nuggets': [0, 0], 'Detroit Pistons': [0, 0], 'Golden State Warriors': [0, 0], 'Houston Rockets': [0, 0], 'Indiana Pacers': [0, 0], 'Los Angeles Clippers': [0, 0], 'Los Angeles Lakers': [0, 0], 'Memphis Grizzlies': [0, 0], 'Miami Heat': [0, 0], 'Milwaukee Bucks': [0, 0], 'Minnesota Timberwolves': [0, 0], 'New Orleans Pelicans': [0, 0], 'New York Knicks': [0, 0], 'Oklahoma City Thunder': [0, 0], 'Orlando Magic': [0, 0], 'Philadelphia 76ers': [0, 0], 'Phoenix Suns': [0, 0], 'Portland Trail Blazers': [0, 0], 'Sacramento Kings': [0, 0], 'San Antonio Spurs': [0, 0], 'Toronto Raptors': [0, 0], 'Utah Jazz': [0, 0], 'Washington Wizards': [0, 0]}
+		new_records = simulate_season(eastern_conference,western_conference,elos,records,schedule)
+		for record in new_records:
+			total_records[record][0] += new_records[record][0]
+			total_records[record][1] += new_records[record][1]
 
 
-for record in total_records:
-	total_records[record][0] = round(total_records[record][0]/n,1)
-	total_records[record][1] = round(total_records[record][1]/n,1)
-for record in total_records:
-	print(record,total_records[record])
-end = time.time()
-print('this program took a total of ',round(end-start,2),'seconds to run for an n of ',n)
+	for record in total_records:
+		total_records[record][0] = round(total_records[record][0]/n,1)
+		total_records[record][1] = round(total_records[record][1]/n,1)
+	for record in total_records:
+		print(record,total_records[record])
+	end = time.time()
+	print('this program took a total of ',round(end-start,2),'seconds to run for an n of ',n)
