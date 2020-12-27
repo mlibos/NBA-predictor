@@ -5,6 +5,8 @@
 
 The following results are my predictions if we had an 82 game season (I used the 2018-2019 schedule since the current schedule is not fully released)
 
+Format: Team [Wins,Losses]
+
 Atlanta Hawks [41.6, 40.4]
 Boston Celtics [50.0, 32.0]
 Brooklyn Nets [46.7, 35.3]
