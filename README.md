@@ -43,7 +43,7 @@ Oklahoma City Thunder [29.3, 52.7]
 Golden State Warriors [19.0, 63.0]  
 
 key: 
-a * indicates team automatically qualifies for playoffs
-a ** indicates team qualifies for play-in tournament
+ * indicates team automatically qualifies for playoffs
+ ** indicates team qualifies for play-in tournament
 
 this program took a total of  70.01 seconds to run for an n of  150
