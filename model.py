@@ -108,12 +108,29 @@ def generate_team_bpm_adj(team,rosters,stats):
 				mins_g = round(mins/games/48,3)
 				bpm_adj = bpm*mins_g
 				players[player] = (players[player]*2 + bpm_adj)/3
+	
+	exp = rosters.loc[team].at[team,'Exp']
+	for index,player in enumerate(players):
+		if exp[index] == 'R':
+			pass
+		else:
+			if int(exp[index]) < 5:
+				growth = random.uniform(1.0,1.16)
+				if players[player] > 0:
+					players[player] = players[player]*growth
+				else:
+					players[player] = players[player]/growth
+			elif int(exp[index]) > 13:
+				growth = random.uniform(0.84,1.0)
+				if players[player] > 0:
+					players[player] = players[player]*growth
+				else:
+					players[player] = players[player]/growth
 
 	for player in players:
 		team_BPM_adj += players[player]
 	team_BPM_adj = round(team_BPM_adj/5,3)
 	return team_BPM_adj
-
 
 def generate_elos(teams_BPM_adj):
 	#generates elos from a list of adj team bpm
@@ -157,11 +174,11 @@ if __name__ == "__main__":
 	start = time.time()
 	total_records = {'Atlanta Hawks': [0, 0], 'Boston Celtics': [0, 0], 'Brooklyn Nets': [0, 0], 'Charlotte Hornets': [0, 0], 'Chicago Bulls': [0, 0], 'Cleveland Cavaliers': [0, 0], 'Dallas Mavericks': [0, 0], 'Denver Nuggets': [0, 0], 'Detroit Pistons': [0, 0], 'Golden State Warriors': [0, 0], 'Houston Rockets': [0, 0], 'Indiana Pacers': [0, 0], 'Los Angeles Clippers': [0, 0], 'Los Angeles Lakers': [0, 0], 'Memphis Grizzlies': [0, 0], 'Miami Heat': [0, 0], 'Milwaukee Bucks': [0, 0], 'Minnesota Timberwolves': [0, 0], 'New Orleans Pelicans': [0, 0], 'New York Knicks': [0, 0], 'Oklahoma City Thunder': [0, 0], 'Orlando Magic': [0, 0], 'Philadelphia 76ers': [0, 0], 'Phoenix Suns': [0, 0], 'Portland Trail Blazers': [0, 0], 'Sacramento Kings': [0, 0], 'San Antonio Spurs': [0, 0], 'Toronto Raptors': [0, 0], 'Utah Jazz': [0, 0], 'Washington Wizards': [0, 0]}
 	teams_BPM_adj = {}
-	for team in teams:
-		teams_BPM_adj[team] = generate_team_bpm_adj(team,team_rosters,stats)
-	n = 150
+	n = 10
 	for i in range(n):
 		#player based elo on december 17 2020 (before season started) based on 538
+		for team in teams:
+			teams_BPM_adj[team] = generate_team_bpm_adj(team,team_rosters,stats)
 		elos = generate_elos(teams_BPM_adj)
 		records = {'Atlanta Hawks': [0, 0], 'Boston Celtics': [0, 0], 'Brooklyn Nets': [0, 0], 'Charlotte Hornets': [0, 0], 'Chicago Bulls': [0, 0], 'Cleveland Cavaliers': [0, 0], 'Dallas Mavericks': [0, 0], 'Denver Nuggets': [0, 0], 'Detroit Pistons': [0, 0], 'Golden State Warriors': [0, 0], 'Houston Rockets': [0, 0], 'Indiana Pacers': [0, 0], 'Los Angeles Clippers': [0, 0], 'Los Angeles Lakers': [0, 0], 'Memphis Grizzlies': [0, 0], 'Miami Heat': [0, 0], 'Milwaukee Bucks': [0, 0], 'Minnesota Timberwolves': [0, 0], 'New Orleans Pelicans': [0, 0], 'New York Knicks': [0, 0], 'Oklahoma City Thunder': [0, 0], 'Orlando Magic': [0, 0], 'Philadelphia 76ers': [0, 0], 'Phoenix Suns': [0, 0], 'Portland Trail Blazers': [0, 0], 'Sacramento Kings': [0, 0], 'San Antonio Spurs': [0, 0], 'Toronto Raptors': [0, 0], 'Utah Jazz': [0, 0], 'Washington Wizards': [0, 0]}
 		new_records = simulate_season(eastern_conference,western_conference,elos,records,schedule,stats)
