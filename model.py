@@ -180,7 +180,7 @@ if __name__ == "__main__":
 
 	total_records = {"Atlanta Hawks": [0, 0], "Boston Celtics": [0, 0], "Brooklyn Nets": [0, 0], "Charlotte Hornets": [0, 0], "Chicago Bulls": [0, 0], "Cleveland Cavaliers": [0, 0], "Dallas Mavericks": [0, 0], "Denver Nuggets": [0, 0], "Detroit Pistons": [0, 0], "Golden State Warriors": [0, 0], "Houston Rockets": [0, 0], "Indiana Pacers": [0, 0], "Los Angeles Clippers": [0, 0], "Los Angeles Lakers": [0, 0], "Memphis Grizzlies": [0, 0], "Miami Heat": [0, 0], "Milwaukee Bucks": [0, 0], "Minnesota Timberwolves": [0, 0], "New Orleans Pelicans": [0, 0], "New York Knicks": [0, 0], "Oklahoma City Thunder": [0, 0], "Orlando Magic": [0, 0], "Philadelphia 76ers": [0, 0], "Phoenix Suns": [0, 0], "Portland Trail Blazers": [0, 0], "Sacramento Kings": [0, 0], "San Antonio Spurs": [0, 0], "Toronto Raptors": [0, 0], "Utah Jazz": [0, 0], "Washington Wizards": [0, 0]}
 	teams_BPM_adj = {}
-	n = 10
+	n = 50
 	for i in range(n):
 		#player based elo on december 17 2020 (before season started) based on 538
 		for team in teams:
