@@ -8,14 +8,6 @@ import pandas
 import numpy
 import statistics
 
-
-#list out data files in data folder and save them to new variable names for easy access
-data_files = []
-entries = Path("C:/Users/SEDan/Documents/github/NBA-predictor/data/")
-for entry in entries.iterdir():
-	file = "C:/Users/SEDan/Documents/github/NBA-predictor/data/" + entry.name
-	data_files.append(file)
-
 def player_edit(player):
 	#given player string returns string without additional info
 	place = 0
@@ -24,42 +16,6 @@ def player_edit(player):
 			place = index
 	return player[0:place]
 
-#create dataframes and make them pretty
-advanced_stats_2019 = pandas.read_csv(data_files[0])
-advanced_stats_2020 = pandas.read_csv(data_files[1])
-schedule = pandas.read_csv(data_files[2])
-per_game_stats_2019 = pandas.read_csv(data_files[3])
-per_game_stats_2020 = pandas.read_csv(data_files[4])
-team_per_game = pandas.read_csv(data_files[5])
-team_total = pandas.read_csv(data_files[6])
-team_rosters = pandas.read_csv(data_files[7])
-team_per_game.set_index("Team",inplace=True)
-team_total.set_index("Team",inplace=True)
-team_rosters.set_index("Team",inplace=True)
-advanced_stats_2020.loc[:,"Player"] = advanced_stats_2020.loc[:,"Player"].apply(player_edit)
-advanced_stats_2019.loc[:,"Player"] = advanced_stats_2019.loc[:,"Player"].apply(player_edit)
-per_game_stats_2019.loc[:,"Player"] = per_game_stats_2019.loc[:,"Player"].apply(player_edit)
-per_game_stats_2020.loc[:,"Player"] = per_game_stats_2020.loc[:,"Player"].apply(player_edit)
-advanced_stats_2019.set_index("Player",inplace=True)
-advanced_stats_2020.set_index("Player",inplace=True)
-per_game_stats_2019.set_index("Player",inplace=True)
-per_game_stats_2020.set_index("Player",inplace=True)
-
-stats = [advanced_stats_2019,advanced_stats_2020,per_game_stats_2019,per_game_stats_2020,team_per_game,team_total,team_rosters]
-
-#list of teams and lists of each conference
-teams = []
-for team in team_per_game.index:
-	if team in teams:
-		pass
-	else:
-		teams.append(team)
-# teams = ["Atlanta Hawks", "Boston Celtics", "Brooklyn Nets", "Charlotte Hornets", "Chicago Bulls", "Cleveland Cavaliers", "Dallas Mavericks", "Denver Nuggets", "Detroit Pistons", "Golden State Warriors", "Houston Rockets", "Indiana Pacers", "Los Angeles Clippers", "Los Angeles Lakers", "Memphis Grizzlies", "Miami Heat", "Milwaukee Bucks", "Minnesota Timberwolves", "New Orleans Pelicans", "New York Knicks", "Oklahoma City Thunder", "Orlando Magic", "Philadelphia 76ers", "Phoenix Suns", "Portland Trail Blazers", "Sacramento Kings", "San Antonio Spurs", "Toronto Raptors", "Utah Jazz", "Washington Wizards"]
-eastern_conference = ["Atlanta Hawks","Boston Celtics","Brooklyn Nets","Charlotte Hornets","Chicago Bulls","Cleveland Cavaliers","Detroit Pistons","Indiana Pacers","Miami Heat","Milwaukee Bucks","New York Knicks","Orlando Magic","Philadelphia 76ers","Toronto Raptors","Washington Wizards"]
-western_conference = []
-for team in teams:
-	if team not in eastern_conference:
-		western_conference.append(team)
 
 def simulate_game(home_team,away_team,elos):
 	#simulates a single game based on simple elo and updates elos
@@ -178,6 +134,50 @@ def simulate_season(eastern_conference,western_conference,elos,records,schedule,
 if __name__ == "__main__":
 	# Here we run the code to simulate n number of seasons and find a mean win/loss count for the teams
 	start = time.time()
+	#list out data files in data folder and save them to new variable names for easy access
+	data_files = []
+	entries = Path("C:/Users/SEDan/Documents/github/NBA-predictor/data/")
+	for entry in entries.iterdir():
+		file = "C:/Users/SEDan/Documents/github/NBA-predictor/data/" + entry.name
+		data_files.append(file)
+
+	#create dataframes and make them pretty
+	advanced_stats_2019 = pandas.read_csv(data_files[0])
+	advanced_stats_2020 = pandas.read_csv(data_files[1])
+	schedule = pandas.read_csv(data_files[2])
+	per_game_stats_2019 = pandas.read_csv(data_files[3])
+	per_game_stats_2020 = pandas.read_csv(data_files[4])
+	team_per_game = pandas.read_csv(data_files[5])
+	team_total = pandas.read_csv(data_files[6])
+	team_rosters = pandas.read_csv(data_files[7])
+	team_per_game.set_index("Team",inplace=True)
+	team_total.set_index("Team",inplace=True)
+	team_rosters.set_index("Team",inplace=True)
+	advanced_stats_2020.loc[:,"Player"] = advanced_stats_2020.loc[:,"Player"].apply(player_edit)
+	advanced_stats_2019.loc[:,"Player"] = advanced_stats_2019.loc[:,"Player"].apply(player_edit)
+	per_game_stats_2019.loc[:,"Player"] = per_game_stats_2019.loc[:,"Player"].apply(player_edit)
+	per_game_stats_2020.loc[:,"Player"] = per_game_stats_2020.loc[:,"Player"].apply(player_edit)
+	advanced_stats_2019.set_index("Player",inplace=True)
+	advanced_stats_2020.set_index("Player",inplace=True)
+	per_game_stats_2019.set_index("Player",inplace=True)
+	per_game_stats_2020.set_index("Player",inplace=True)
+
+	stats = [advanced_stats_2019,advanced_stats_2020,per_game_stats_2019,per_game_stats_2020,team_per_game,team_total,team_rosters]
+
+	#list of teams and lists of each conference
+	teams = []
+	for team in team_per_game.index:
+		if team in teams:
+			pass
+		else:
+			teams.append(team)
+	# teams = ["Atlanta Hawks", "Boston Celtics", "Brooklyn Nets", "Charlotte Hornets", "Chicago Bulls", "Cleveland Cavaliers", "Dallas Mavericks", "Denver Nuggets", "Detroit Pistons", "Golden State Warriors", "Houston Rockets", "Indiana Pacers", "Los Angeles Clippers", "Los Angeles Lakers", "Memphis Grizzlies", "Miami Heat", "Milwaukee Bucks", "Minnesota Timberwolves", "New Orleans Pelicans", "New York Knicks", "Oklahoma City Thunder", "Orlando Magic", "Philadelphia 76ers", "Phoenix Suns", "Portland Trail Blazers", "Sacramento Kings", "San Antonio Spurs", "Toronto Raptors", "Utah Jazz", "Washington Wizards"]
+	eastern_conference = ["Atlanta Hawks","Boston Celtics","Brooklyn Nets","Charlotte Hornets","Chicago Bulls","Cleveland Cavaliers","Detroit Pistons","Indiana Pacers","Miami Heat","Milwaukee Bucks","New York Knicks","Orlando Magic","Philadelphia 76ers","Toronto Raptors","Washington Wizards"]
+	western_conference = []
+	for team in teams:
+		if team not in eastern_conference:
+			western_conference.append(team)
+
 	total_records = {"Atlanta Hawks": [0, 0], "Boston Celtics": [0, 0], "Brooklyn Nets": [0, 0], "Charlotte Hornets": [0, 0], "Chicago Bulls": [0, 0], "Cleveland Cavaliers": [0, 0], "Dallas Mavericks": [0, 0], "Denver Nuggets": [0, 0], "Detroit Pistons": [0, 0], "Golden State Warriors": [0, 0], "Houston Rockets": [0, 0], "Indiana Pacers": [0, 0], "Los Angeles Clippers": [0, 0], "Los Angeles Lakers": [0, 0], "Memphis Grizzlies": [0, 0], "Miami Heat": [0, 0], "Milwaukee Bucks": [0, 0], "Minnesota Timberwolves": [0, 0], "New Orleans Pelicans": [0, 0], "New York Knicks": [0, 0], "Oklahoma City Thunder": [0, 0], "Orlando Magic": [0, 0], "Philadelphia 76ers": [0, 0], "Phoenix Suns": [0, 0], "Portland Trail Blazers": [0, 0], "Sacramento Kings": [0, 0], "San Antonio Spurs": [0, 0], "Toronto Raptors": [0, 0], "Utah Jazz": [0, 0], "Washington Wizards": [0, 0]}
 	teams_BPM_adj = {}
 	n = 10
@@ -191,8 +191,6 @@ if __name__ == "__main__":
 		for record in new_records:
 			total_records[record][0] += new_records[record][0]
 			total_records[record][1] += new_records[record][1]
-
-
 	for record in total_records:
 		total_records[record][0] = round(total_records[record][0]/n,1)
 		total_records[record][1] = round(total_records[record][1]/n,1)
